@@ -3,7 +3,9 @@ package com.rnt.rent.controller;
 import com.rnt.rent.entity.Tenant;
 import com.rnt.rent.repository.TenantRepository;
 import com.rnt.rent.security.JwtUtil;
+import com.rnt.rent.tenant.TenantContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +31,9 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
     @PostMapping("/register")
     public ResponseEntity<?> registerTenant(@RequestBody Tenant tenant) {
         if (tenantRepository.findByUsername(tenant.getUsername()).isPresent()) {
@@ -43,6 +48,20 @@ public class AuthController {
         }
 
         Tenant savedTenant = tenantRepository.save(tenant);
+
+        // Explicitly create the new database for the tenant by creating collections
+        TenantContext.setTenantId(savedTenant.getTenantName());
+        try {
+            if (!mongoTemplate.collectionExists("dataset")) {
+                mongoTemplate.createCollection("dataset");
+            }
+            if (!mongoTemplate.collectionExists("record")) {
+                mongoTemplate.createCollection("record");
+            }
+        } finally {
+            TenantContext.clear();
+        }
+
         return ResponseEntity.ok(savedTenant);
     }
 
