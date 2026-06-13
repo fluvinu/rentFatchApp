@@ -2,7 +2,9 @@ import { createFileRoute, Outlet, Link, useNavigate, useRouterState, Navigate } 
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Brand } from "@/components/brand";
-import { LogOut, LayoutDashboard, Car, Users, ClipboardList } from "lucide-react";
+import { LogOut, LayoutDashboard, Car, Users, ClipboardList, Database, Folder } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api/client";
 
 export const Route = createFileRoute("/_authenticated")({
   component: AuthLayout,
@@ -19,6 +21,15 @@ function AuthLayout() {
   const { token, ready, logout, user } = useAuth();
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const datasetsQuery = useQuery({
+    queryKey: ["datasets"],
+    queryFn: async () => {
+      const res = await api<any[]>("/dataset");
+      return res.ok && Array.isArray(res.data) ? res.data : [];
+    },
+    enabled: !!token,
+  });
 
   if (!ready) {
     return <div className="flex min-h-screen items-center justify-center bg-background text-muted-foreground">Loading…</div>;
@@ -44,6 +55,39 @@ function AuthLayout() {
               >
                 <Icon className="h-4 w-4" />
                 {label}
+              </Link>
+            );
+          })}
+
+          <div className="my-2 border-t border-border/50" />
+
+          <Link
+            to="/datasets"
+            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider transition-colors ${
+              pathname === "/datasets" || pathname.startsWith("/datasets/")
+                ? "bg-primary text-primary-foreground shadow-[var(--shadow-glow)]"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+            }`}
+          >
+            <Database className="h-4 w-4" />
+            Manage Datasets
+          </Link>
+
+          {datasetsQuery.data?.map((dataset) => {
+            const to = `/d/${dataset.id}`;
+            const active = pathname === to || pathname.startsWith(to + "/");
+            return (
+              <Link
+                key={dataset.id}
+                to={to}
+                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider transition-colors ${
+                  active
+                    ? "bg-primary text-primary-foreground shadow-[var(--shadow-glow)]"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                }`}
+              >
+                <Folder className="h-4 w-4" />
+                {dataset.name}
               </Link>
             );
           })}
@@ -85,6 +129,35 @@ function AuthLayout() {
               >
                 <Icon className="h-4 w-4" />
                 {label}
+              </Link>
+            );
+          })}
+
+          <Link
+            to="/datasets"
+            className={`flex items-center gap-2 px-4 py-3 text-xs font-bold uppercase tracking-wider whitespace-nowrap border-b-2 ${
+              pathname === "/datasets" || pathname.startsWith("/datasets/")
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground"
+            }`}
+          >
+            <Database className="h-4 w-4" />
+            Manage Datasets
+          </Link>
+
+          {datasetsQuery.data?.map((dataset) => {
+            const to = `/d/${dataset.id}`;
+            const active = pathname === to || pathname.startsWith(to + "/");
+            return (
+              <Link
+                key={dataset.id}
+                to={to}
+                className={`flex items-center gap-2 px-4 py-3 text-xs font-bold uppercase tracking-wider whitespace-nowrap border-b-2 ${
+                  active ? "border-primary text-primary" : "border-transparent text-muted-foreground"
+                }`}
+              >
+                <Folder className="h-4 w-4" />
+                {dataset.name}
               </Link>
             );
           })}
