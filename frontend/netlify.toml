@@ -1,5 +1,5 @@
 [build]
-  publish = ".netlify/public"
+  publish = "dist"
   functions = ".netlify/functions-internal"
 
 [[redirects]]
