@@ -2,7 +2,7 @@ package com.rnt.rent.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+//hi
 @Document(collection = "customer")
 public class Customer {
     @Id
