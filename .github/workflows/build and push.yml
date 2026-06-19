@@ -34,7 +34,7 @@ jobs:
       - name: Build Image
         run: |
           docker build -t siddharthshivwanshi/rentfetch:${{ github.sha }} .
-          docker tag siddharthshivwanshi/rentfetch:${{ github.sha }} siddharthshivwanshi/rent:latest
+          docker tag siddharthshivwanshi/rentfetch:${{ github.sha }} siddharthshivwanshi/rentfetch:latest
 
       - name: Push Image
         run: |
