@@ -33,10 +33,10 @@ jobs:
 
       - name: Build Image
         run: |
-          docker build -t siddharthshivwanshi/rent:${{ github.sha }} .
-          docker tag siddharthshivwanshi/rent:${{ github.sha }} siddharthshivwanshi/rent:latest
+          docker build -t siddharthshivwanshi/rentfetch:${{ github.sha }} .
+          docker tag siddharthshivwanshi/rentfetch:${{ github.sha }} siddharthshivwanshi/rent:latest
 
       - name: Push Image
         run: |
-          docker push siddharthshivwanshi/rent:${{ github.sha }}
-          docker push siddharthshivwanshi/rent:latest
+          docker push siddharthshivwanshi/rentfetch:${{ github.sha }}
+          docker push siddharthshivwanshi/rentfetch:latest
