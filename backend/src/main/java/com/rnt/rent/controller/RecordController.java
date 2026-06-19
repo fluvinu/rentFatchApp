@@ -16,7 +16,7 @@ public class RecordController {
     @Autowired
     private RecordRepository recordRepository;
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public List<Record> getAllRecords(@RequestParam(required = false) String datasetId) {
         if (datasetId != null && !datasetId.isEmpty()) {
             return recordRepository.findByDatasetId(datasetId);
@@ -24,7 +24,7 @@ public class RecordController {
         return recordRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping({"", "/"})
     public Record createRecord(@RequestBody Record record) {
         return recordRepository.save(record);
     }
