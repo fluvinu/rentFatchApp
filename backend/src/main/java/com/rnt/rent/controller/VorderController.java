@@ -41,7 +41,7 @@ public class VorderController {
 		return "order Controller";
 	}
 	
-	@GetMapping("/")
+	@GetMapping({"", "/"})
 	public List<Vorder> getAllOrders(){
 		return vorder.allorder();
 	}

@@ -30,7 +30,7 @@ public class CustomerController {
 	    }
 	
 		
-	    @GetMapping("/")
+	    @GetMapping({"", "/"})
 	    public List<Customer> getAllCustomer() {
 	        return customerrepo.getAllCustomer(); // checked
 	    }

@@ -22,7 +22,7 @@ public class VehicleController {
     	return "vhicle Controller";
     }
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public List<Vehicle> getAllVehicles() {
         return vehicleService.getAllVehicles();
     }
