@@ -61,7 +61,7 @@ export function ResourceManager(props: ResourceManagerProps) {
   const list = useQuery({
     queryKey: listKey,
     queryFn: async () => {
-      const res = await api<AnyRecord[] | { data?: AnyRecord[] }>(`${props.basePath}/`);
+      const res = await api<AnyRecord[] | { data?: AnyRecord[] }>(props.basePath);
       if (!res.ok) throw new Error(res.error ?? "Failed to load");
       const data = res.data;
       if (Array.isArray(data)) return data;
@@ -76,7 +76,7 @@ export function ResourceManager(props: ResourceManagerProps) {
 
   const createMut = useMutation({
     mutationFn: async (form: Record<string, string>) => {
-      const path = props.createPathBuilder ? props.createPathBuilder(form) : `${props.basePath}/`;
+      const path = props.createPathBuilder ? props.createPathBuilder(form) : props.basePath;
       const body = props.createPathBuilder ? undefined : coerce(form, props.fields);
       const res = await api(path, { method: "POST", body });
       if (!res.ok) throw new Error(res.error ?? "Create failed");
