@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const API_BASE = "https://rent-0xm8.onrender.com";
+const API_BASE = process.env.API_BASE || "http://localhost:8080";
 
 export const apiProxy = createServerFn({ method: "POST" })
   .inputValidator(

@@ -16,12 +16,12 @@ public class DatasetController {
     @Autowired
     private DatasetRepository datasetRepository;
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public List<Dataset> getAllDatasets() {
         return datasetRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping({"", "/"})
     public Dataset createDataset(@RequestBody Dataset dataset) {
         return datasetRepository.save(dataset);
     }

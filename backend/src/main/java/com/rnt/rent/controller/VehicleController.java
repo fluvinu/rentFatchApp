@@ -22,7 +22,7 @@ public class VehicleController {
     	return "vhicle Controller";
     }
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public List<Vehicle> getAllVehicles() {
         return vehicleService.getAllVehicles();
     }
@@ -33,7 +33,7 @@ public class VehicleController {
         return vehicle.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping({"", "/"})
     public Vehicle createVehicle(@RequestBody Vehicle vehicle) {
         return vehicleService.saveVehicle(vehicle);
     }

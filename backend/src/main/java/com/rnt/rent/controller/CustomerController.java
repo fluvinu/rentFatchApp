@@ -30,7 +30,7 @@ public class CustomerController {
 	    }
 	
 		
-	    @GetMapping("/")
+	    @GetMapping({"", "/"})
 	    public List<Customer> getAllCustomer() {
 	        return customerrepo.getAllCustomer(); // checked
 	    }
@@ -41,7 +41,7 @@ public class CustomerController {
 	        return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()); // checked
 	    }
 	
-	 	@PostMapping
+		@PostMapping({"", "/"})
 	    public Customer createCustomer(@RequestBody Customer cus) {
 			return customerrepo.saveCustomer(cus);
 	    	
