@@ -51,7 +51,7 @@ export type ResourceManagerProps = {
 };
 
 function getId(row: AnyRecord) {
-  return String(row._id ?? row.id ?? "");
+  return String(row._id ?? row.id ?? row.cId ?? row.vId ?? row.oId ?? "");
 }
 
 export function ResourceManager(props: ResourceManagerProps) {

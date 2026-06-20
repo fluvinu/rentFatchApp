@@ -14,12 +14,10 @@ function CustomersPage() {
       basePath="/cus"
       queryKey="customers"
       fields={[
-        { name: "name", label: "Full name", required: true, placeholder: "Jane Doe" },
-        { name: "email", label: "Email", type: "email", placeholder: "jane@example.com" },
-        { name: "phone", label: "Phone", placeholder: "+1 555 0123" },
-        { name: "licenseNumber", label: "Driver license", placeholder: "DL-1234567" },
+        { name: "cName", label: "Customer Name", required: true, placeholder: "Jane Doe" },
+        { name: "mobileNo", label: "Mobile Number", type: "number", placeholder: "1234567890" },
       ]}
-      displayFields={["name", "email", "phone", "licenseNumber"]}
+      displayFields={["cName", "mobileNo"]}
     />
   );
 }
