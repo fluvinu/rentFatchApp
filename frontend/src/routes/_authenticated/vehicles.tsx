@@ -14,14 +14,12 @@ function VehiclesPage() {
       basePath="/veh"
       queryKey="vehicles"
       fields={[
-        { name: "make", label: "Make", required: true, placeholder: "Toyota" },
-        { name: "model", label: "Model", required: true, placeholder: "Corolla" },
-        { name: "year", label: "Year", type: "number", placeholder: "2024" },
-        { name: "plate", label: "License plate", placeholder: "ABC-1234" },
-        { name: "pricePerDay", label: "Price / day", type: "number", placeholder: "49" },
-        { name: "status", label: "Status", placeholder: "available" },
+        { name: "vName", label: "Vehicle Name", required: true, placeholder: "Corolla" },
+        { name: "vType", label: "Vehicle Type", required: true, placeholder: "Sedan" },
+        { name: "vPrice", label: "Price", type: "number", placeholder: "49" },
+        { name: "isAvailable", label: "Available", placeholder: "true" },
       ]}
-      displayFields={["make", "model", "year", "plate", "status"]}
+      displayFields={["vName", "vType", "vPrice", "isAvailable"]}
     />
   );
 }

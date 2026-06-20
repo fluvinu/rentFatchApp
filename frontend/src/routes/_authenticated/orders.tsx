@@ -30,12 +30,12 @@ function OrdersPage() {
       basePath="/ord"
       queryKey="orders"
       fields={[
-        { name: "vehicleId", label: "Vehicle ID" },
-        { name: "customerId", label: "Customer ID" },
-        { name: "status", label: "Status" },
-        { name: "returnedAt", label: "Returned at" },
+        { name: "cName", label: "Customer Name" },
+        { name: "tDate", label: "Taken At" },
+        { name: "rDate", label: "Returned At" },
+        { name: "total", label: "Total Amount" },
       ]}
-      displayFields={["vehicleId", "customerId", "status", "returnedAt"]}
+      displayFields={["cName", "tDate", "rDate", "total"]}
       customCreate={<CreateOrderForm />}
     />
   );
@@ -76,7 +76,7 @@ function CreateOrderForm() {
   });
 
   function rowId(r: Row) {
-    return String(r._id ?? r.id ?? "");
+    return String(r._id ?? r.id ?? r.cId ?? r.vId ?? r.oId ?? "");
   }
   function rowLabel(r: Row, ...keys: string[]) {
     for (const k of keys) {
@@ -102,7 +102,7 @@ function CreateOrderForm() {
           <SelectContent>
             {(vehicles.data ?? []).map((v) => (
               <SelectItem key={rowId(v)} value={rowId(v)}>
-                {rowLabel(v, "make", "model", "plate")} — {rowId(v).slice(-6)}
+                {rowLabel(v, "vName", "vType")} — {rowId(v).slice(-6)}
               </SelectItem>
             ))}
           </SelectContent>
@@ -115,7 +115,7 @@ function CreateOrderForm() {
           <SelectContent>
             {(customers.data ?? []).map((c) => (
               <SelectItem key={rowId(c)} value={rowId(c)}>
-                {rowLabel(c, "name", "email")} — {rowId(c).slice(-6)}
+                {rowLabel(c, "cName")} — {rowId(c).slice(-6)}
               </SelectItem>
             ))}
           </SelectContent>
