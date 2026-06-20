@@ -63,7 +63,7 @@ function CreateOrderForm() {
 
   const create = useMutation({
     mutationFn: async () => {
-      const res = await api(`/ord/${vehicleId}/${customerId}`, { method: "POST" });
+      const res = await api(`/ord/${vehicleId}/${customerId}`, { method: "POST", body: {} });
       if (!res.ok) throw new Error(res.error ?? "Create failed");
       return res.data;
     },
